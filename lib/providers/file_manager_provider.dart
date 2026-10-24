@@ -95,6 +95,7 @@ class FileManagerProvider extends ChangeNotifier {
     _isGridView = PreferencesService.getIsGridView();
     _iconScale = PreferencesService.getIconScale();
     _itemPaddingMultiplier = PreferencesService.getItemPaddingMultiplier();
+    _gridColumns = PreferencesService.getGridColumns();
     _showHiddenFiles = PreferencesService.getShowHiddenFiles();
     _showFloatingAddButton = PreferencesService.getShowFloatingAddButton();
     _defaultToBrowseScreen = PreferencesService.getDefaultToBrowseScreen();
@@ -177,6 +178,7 @@ class FileManagerProvider extends ChangeNotifier {
     _isGridView = PreferencesService.getIsGridView();
     _iconScale = PreferencesService.getIconScale();
     _itemPaddingMultiplier = PreferencesService.getItemPaddingMultiplier();
+    _gridColumns = PreferencesService.getGridColumns();
     _showHiddenFiles = PreferencesService.getShowHiddenFiles();
     _showFloatingAddButton = PreferencesService.getShowFloatingAddButton();
     _defaultToBrowseScreen = PreferencesService.getDefaultToBrowseScreen();
@@ -520,6 +522,17 @@ class FileManagerProvider extends ChangeNotifier {
     if (_itemPaddingMultiplier == clamped) return;
     _itemPaddingMultiplier = clamped;
     PreferencesService.saveItemPaddingMultiplier(_itemPaddingMultiplier);
+    notifyListeners();
+  }
+
+  int _gridColumns = 3;
+  int get gridColumns => _gridColumns;
+
+  void setGridColumns(int columns) {
+    final clamped = columns.clamp(2, 6).toInt();
+    if (_gridColumns == clamped) return;
+    _gridColumns = clamped;
+    PreferencesService.saveGridColumns(_gridColumns);
     notifyListeners();
   }
 
