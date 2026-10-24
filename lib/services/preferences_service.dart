@@ -12,6 +12,7 @@ class PreferencesService {
   static const String _keyIsGridView = 'is_grid_view';
   static const String _keyIconScale = 'icon_scale';
   static const String _keyItemPaddingMultiplier = 'item_padding_multiplier';
+  static const String _keyGridColumns = 'grid_columns';
   static const String _keySortType = 'sort_type';
   static const String _keyCategoryOrder = 'category_order';
   static const String _keyActiveCategories = 'active_categories';
@@ -175,6 +176,14 @@ class PreferencesService {
 
   static Future<void> saveItemPaddingMultiplier(double val) async {
     await _prefs?.setDouble(_keyItemPaddingMultiplier, val);
+  }
+
+  static int getGridColumns() {
+    return _prefs?.getInt(_keyGridColumns) ?? 3;
+  }
+
+  static Future<void> saveGridColumns(int val) async {
+    await _prefs?.setInt(_keyGridColumns, val);
   }
 
   static FileSortType getSortType() {

@@ -63,8 +63,8 @@ class FolderGridItem extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: (8.0 * itemPaddingMultiplier).clamp(2.0, 16.0),
-                    vertical: (8.0 * itemPaddingMultiplier).clamp(2.0, 16.0),
+                    horizontal: (4.0 * itemPaddingMultiplier).clamp(2.0, 8.0),
+                    vertical: (4.0 * itemPaddingMultiplier).clamp(2.0, 8.0),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

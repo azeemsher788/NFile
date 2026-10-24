@@ -656,6 +656,37 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
                                   setStateModal(() {});
                                 },
                               ),
+                              const SizedBox(height: 12),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Folders per row',
+                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${provider.gridColumns}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: theme.colorScheme.primary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Slider(
+                                value: provider.gridColumns.toDouble(),
+                                min: 2,
+                                max: 6,
+                                divisions: 4,
+                                activeColor: theme.colorScheme.primary,
+                                onChanged: (val) {
+                                  provider.setGridColumns(val.round());
+                                  setStateModal(() {});
+                                },
+                              ),
                             ],
                           ),
                         ),
@@ -1317,16 +1348,10 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
               if (firstHighlightedIndex != -1) {
                 double targetOffset = 0.0;
                 if (provider.isGridView) {
-                  final crossAxisCount =
-                      (MediaQuery.of(context).size.width /
-                              (110 * provider.iconScale))
-                          .floor()
-                          .clamp(2, 6);
+                  final crossAxisCount = provider.gridColumns;
                   final row = firstHighlightedIndex ~/ crossAxisCount;
                   final itemHeight =
-                      (150 *
-                              provider.iconScale *
-                              provider.itemPaddingMultiplier)
+                      (150 * provider.iconScale)
                           .clamp(100.0, 300.0);
                   targetOffset = row * itemHeight;
                 } else {
@@ -2221,24 +2246,9 @@ class _DirectoryScreenState extends State<DirectoryScreen> {
                                           ? SliverGrid(
                                               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                                 crossAxisCount:
-                                                    (MediaQuery.of(
-                                                              context,
-                                                            ).size.width /
-                                                            (110 *
-                                                                provider
-                                                                    .iconScale))
-                                                        .floor()
-                                                        .clamp(2, 6),
-                                                mainAxisSpacing:
-                                                    (12 *
-                                                            provider
-                                                                .itemPaddingMultiplier)
-                                                        .clamp(4.0, 24.0),
-                                                crossAxisSpacing:
-                                                    (12 *
-                                                            provider
-                                                                .itemPaddingMultiplier)
-                                                        .clamp(4.0, 24.0),
+                                                    provider.gridColumns,
+                                                mainAxisSpacing: 12,
+                                                crossAxisSpacing: 12,
                                                 childAspectRatio: 0.75,
                                               ),
                                               delegate: SliverChildBuilderDelegate(
